@@ -1,4 +1,4 @@
-import {  getCustomRepository, Repository } from "typeorm";
+import {  getCustomRepository} from "typeorm";
 import { Setting } from "../entities/Setting";
 import { SettingsRepository } from "../repositories/SettingsRepository";
 
@@ -13,7 +13,7 @@ interface ISettingsCreate {
 
 class SettingsService {
 
-    private settingsRepository: Repository<Setting>;
+    private settingsRepository: SettingsRepository;
 
     constructor(){
         this.settingsRepository = getCustomRepository(SettingsRepository);

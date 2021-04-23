@@ -1,5 +1,5 @@
 import { Request, Response} from "express";
-import { TreeRepositoryNotSupportedError } from "typeorm";
+ 
 import { SettingsService } from "../services/SettingsService";
  
 
