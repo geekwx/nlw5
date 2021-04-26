@@ -1,6 +1,6 @@
 const socket = io();
 let connectionsUsers = [];
-
+let connectionInSupport = [];
 
 socket.on("admin_list_all_users", connections => {
     connectionsUsers =connections;
@@ -21,6 +21,8 @@ socket.on("admin_list_all_users", connections => {
 
 function call(id){
     const connection = connectionsUsers.find( connection => connection.socket_id === id);
+
+    connectionInSupport.push(connection);
 
     const template = document.getElementById("admin_template").innerHTML;
 
@@ -81,6 +83,29 @@ function sendMessage(id){
 
     text.value = "";
 
-
-
 }
+
+
+socket.on("admin_receive_message", data => {
+    console.log(data);
+    console.log("==>, estou no admin receive message", data);
+
+
+    const connection = connectionsUsers.find((connection => connection.socket_id = data.socket_id));
+
+    const divMessages = document.getElementById(
+        `allMessage${conection.user_id}`
+    )
+
+    const createDiv = document.createElement("div");
+    createDiv.className = "admin_message_client";
+
+    createDiv.innerHTML = `<span>${connection.user.email} </span>`;
+    createDiv.innerHTML += `<span>${data.message.text}</span>`;
+    createDiv.innerHTML += `<span class="admin_date">${dayjs(data.message.created_at).format("DD/MM/YYYY HH:mm:ss")}</span>`;
+
+    divMessages.appendChild(createDiv);
+    
+})
+
+
